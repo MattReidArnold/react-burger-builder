@@ -8,27 +8,19 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import * as actions from '../../store/actions/index.js';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    loading: false,
-    error: false
+    purchasing: false
   };
 
   componentDidMount() {
-    // axios
-    //   .get('/ingredients.json')
-    //   .then(response => {
-    //     this.setState({ ingredients: response.data });
-    //   })
-    //   .catch(error => {
-    //     this.setState({ error: true });
-    //   });
+    this.props.onInitIngredients();
   }
 
   purchaseContinueHandler = () => {
+    this.props.onInitPurchased();
     this.props.history.push('/checkout');
   };
 
@@ -61,7 +53,7 @@ class BurgerBuilder extends Component {
 
     let orderSummary = null;
 
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p style={{ textAlign: 'center' }}>Ingredients can't be loaded!</p>
     ) : (
       <Spinner />
@@ -109,23 +101,24 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingredientName =>
-      dispatch({
-        type: actionTypes.ADD_INGREDIENT,
-        payload: { ingredientName: ingredientName }
-      }),
+      dispatch(actions.addIngredient(ingredientName)),
     onIngredientRemoved: ingredientName => {
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        payload: { ingredientName: ingredientName }
-      });
+      dispatch(actions.removeIngredient(ingredientName));
+    },
+    onInitIngredients: () => {
+      dispatch(actions.initIngredients());
+    },
+    onInitPurchased: () => {
+      dispatch(actions.purchaseInit());
     }
   };
 };
