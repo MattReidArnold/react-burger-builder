@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./Toolbar.css";
-import Logo from "../../../components/Logo/Logo";
-import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
-import NavigationItems from "../NavigationItems/NavigationItems";
+import classes from './Toolbar.css';
+import Logo from '../../../components/Logo/Logo';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 const toolbar = props => (
   <header className={classes.Toolbar}>
@@ -12,7 +12,7 @@ const toolbar = props => (
       <Logo />
     </div>
     <nav className={classes.DesktopOnly}>
-      <NavigationItems />
+      <NavigationItems isAuthenticated={props.isAuth} />
     </nav>
   </header>
 );
