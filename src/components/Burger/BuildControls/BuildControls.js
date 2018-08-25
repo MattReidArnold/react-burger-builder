@@ -2,6 +2,7 @@ import React from 'react';
 
 import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl';
+import BunControl from './BunControl/BunControl';
 
 const controls = [
   { label: 'Salad', type: 'salad' },
@@ -24,6 +25,7 @@ const buildControls = props => (
         disabled={props.disabled[ctrl.type]}
       />
     ))}
+    <BunControl label="Bun" hasBun={props.bun} toggleBun={props.toggleBun} />
     <button
       className={classes.OrderButton}
       disabled={!props.purchasable}

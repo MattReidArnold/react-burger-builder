@@ -39,3 +39,9 @@ export const initIngredients = () => {
       });
   };
 };
+
+export const toggleBun = () => {
+  return {
+    type: actionTypes.TOGGLE_BUN
+  };
+};

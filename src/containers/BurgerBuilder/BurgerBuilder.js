@@ -67,7 +67,7 @@ class BurgerBuilder extends Component {
     if (this.props.ingredients) {
       burger = (
         <Fragment>
-          <Burger ingredients={this.props.ingredients} />
+          <Burger ingredients={this.props.ingredients} bun={this.props.bun} />
           <BuildControls
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
@@ -76,6 +76,8 @@ class BurgerBuilder extends Component {
             ordered={this.purchaseHandler}
             isAuth={this.props.isAuthenticated}
             price={this.props.totalPrice}
+            toggleBun={this.props.onToggleBun}
+            bun={this.props.bun}
           />
         </Fragment>
       );
@@ -110,7 +112,8 @@ const mapStateToProps = state => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    bun: state.burgerBuilder.bun
   };
 };
 
@@ -129,7 +132,8 @@ const mapDispatchToProps = dispatch => {
     },
     onSetAuthRedirectPath: path => {
       dispatch(actions.setAuthRedirect(path));
-    }
+    },
+    onToggleBun: () => dispatch(actions.toggleBun())
   };
 };
 

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./Burger.css";
-import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = props => {
   let transformedIngredients = Object.keys(props.ingredients)
@@ -14,13 +14,19 @@ const burger = props => {
       return arr.concat(el);
     }, []);
   if (transformedIngredients.length === 0) {
-      transformedIngredients = <p>Please start adding ingredients!</p>
+    transformedIngredients = <p>Please start adding ingredients!</p>;
+  }
+  let bunTop = <BurgerIngredient type="bread-top" />;
+  let bunBottom = <BurgerIngredient type="bread-bottom" />;
+  if (!props.bun) {
+    bunTop = <BurgerIngredient type="salad" />;
+    bunBottom = <BurgerIngredient type="salad" />;
   }
   return (
     <div className={classes.Burger}>
-      <BurgerIngredient type="bread-top" />
+      {bunTop}
       {transformedIngredients}
-      <BurgerIngredient type="bread-bottom" />
+      {bunBottom}
     </div>
   );
 };

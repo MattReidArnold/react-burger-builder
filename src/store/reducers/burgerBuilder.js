@@ -12,7 +12,8 @@ const initialState = {
   ingredients: null,
   totalPrice: 4,
   error: false,
-  building: false
+  building: false,
+  bun: true
 };
 
 const addIngredient = (state, action) => {
@@ -61,6 +62,12 @@ const fetchIngredientFailed = (state, action) => {
   });
 };
 
+const toggleBun = (state, action) => {
+  return updateObject(state, {
+    bun: !state.bun
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
@@ -71,6 +78,8 @@ const reducer = (state = initialState, action) => {
       return setIngredient(state, action);
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return fetchIngredientFailed(state, action);
+    case actionTypes.TOGGLE_BUN:
+      return toggleBun(state, action);
     default:
       return state;
   }
