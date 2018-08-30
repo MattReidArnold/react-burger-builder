@@ -49,15 +49,14 @@ export const auth = (email, password, isSignup) => {
       returnSecureToken: true
     };
     let url =
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=[API_KEY]';
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDp3MmVB9jhqRL2PKbmEPgdqITz4iTL778';
     if (!isSignup) {
       url =
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=[API_KEY]';
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDp3MmVB9jhqRL2PKbmEPgdqITz4iTL778';
     }
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response.data);
         const experationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
